@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
+<meta charset="utf-8">
 <meta property="og:url"                content="https://ademking.github.io/Iftar-Tunisia/" />
 <meta property="og:type"               content="website" />
 <meta property="og:title"              content="Iftar Ramadhan - Tunisia " />
@@ -126,7 +127,7 @@ h1 {
 $(document).ready(function () {
 
     
-$.getJSON( "https://cors.io/?http://muslimsalat.com/tunis.json?key=?key=6565879622c9533fe6ab05232f850fd5&type=json", function( res ) {
+$.getJSON( "https://cors.io/?http://muslimsalat.com/tunis.json?key=6565879622c9533fe6ab05232f850fd5&type=json", function( res ) {
  
   var today = res.items[0].date_for;
   var iftar_time = res.items[0].maghrib;
@@ -137,7 +138,20 @@ $.getJSON( "https://cors.io/?http://muslimsalat.com/tunis.json?key=?key=65658796
 
 
     var myDate = new Date(); //date now
- 
+    $.getJSON( "timetunisia.php", function( res ) {
+      console.log(res)
+      myDate.setFullYear(res.year);
+      myDate.setMonth(res.month);
+      myDate.setDate(res.day);
+      myDate.setHours(res.hour);
+      myDate.setMinutes(res.minutes);
+      myDate.setSeconds(res.sec);
+    });
+
+
+
+
+
   var year =  myDate.getFullYear(); //year now
   var month = myDate.getMonth(); //month now
   var day = myDate.getDate(); //today 
@@ -150,6 +164,9 @@ $.getJSON( "https://cors.io/?http://muslimsalat.com/tunis.json?key=?key=65658796
 
 
  var iftarDate = new Date(year , month , day , hours  , mins , seconds , miliseconds);
+
+
+
 
 if(myDate < iftarDate) {
 
@@ -174,7 +191,7 @@ else {
       $("#countdown").countdown(iftarDate, function (event) {
                     $(this).html(
                         event.strftime(
-                            '<div class="timer-wrapper"><div class="time">%H</div><span class="text">hrs</span></div><div class="timer-wrapper"><div class="time">%M</div><span class="text">mins</span></div><div class="timer-wrapper"><div class="time">%S</div><span class="text">sec</span></div>'
+                          '<div class="timer-wrapper"><div class="time">%H</div><span class="text">ساعة</span></div><div class="timer-wrapper"><div class="time">%M</div><span class="text">دقيقة</span></div><div class="timer-wrapper"><div class="time">%S</div><span class="text">ثانية</span></div>'
                         )
                     );
     });
