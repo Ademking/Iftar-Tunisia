@@ -123,89 +123,102 @@ h1 {
 
 
 <script>
-$(document).ready(function () {
 
-    
-$.getJSON( "https://cors.io/?http://muslimsalat.com/tunis.json?key=6565879622c9533fe6ab05232f850fd5&type=json", function( res ) {
+
+
+
+  
+  $.getJSON( "https://kouki.website/timetunisia.php", function( res ) {
+      
+      dateTunNow =  new Date(res.year, res.month, res.day , res.hour , res.minutes , res.sec , 0) ; //date now
+      console.log(dateTunNow);
+      
+           $.getJSON( "https://cors.io/?http://muslimsalat.com/tunis.json?key=6565879622c9533fe6ab05232f850fd5&type=json", function( res ) {
  
-  var today = res.items[0].date_for;
-  var iftar_time = res.items[0].maghrib;
-  iftar_time = iftar_time.replace(" pm" , "");
-  iftar_hour = parseInt(iftar_time.substring(0, 1)) + 12;
-  iftar_min = parseInt(iftar_time.substring(2, 4));
+            var day_of_iftar = res.items[0].date_for; //iftar day
+            var iftar_time = res.items[0].maghrib;
+            iftar_time = iftar_time.replace(" pm" , "");
+            iftar_hour = parseInt(iftar_time.substring(0, 1)) + 12; //iftar hour
+            iftar_min = parseInt(iftar_time.substring(2, 4)); //iftar minutes
+
+
+
+            var datenow = dateTunNow;
+            var year =  datenow.getFullYear(); //year now
+            var month = datenow.getMonth(); //month now
+            var day = datenow.getDate() ; //
+            var hours = iftar_hour; //iftar hour
+            var mins = iftar_min; //iftar minutes
+            var seconds = datenow.getSeconds(); //seconds now
+            var miliseconds = datenow.getMilliseconds(); //milliseconds now
+            
+          
+
+            var iftarDate = new Date(year , month , day , hours  , mins , seconds , miliseconds);
+            console.log("Date Tawa  : " + dateTunNow);
+            console.log("Date ftour : " + iftarDate);
+         
+
+            if(dateTunNow < iftarDate) {
+
+                    console.log("mazel bekri");
+                    $("#iftar_status").text(": مازال على الإفطار ");
+                    $("#countdown").countdown(iftarDate, function (event) {
+                                  $(this).html(
+                                      event.strftime(
+                                          '<div class="timer-wrapper"><div class="time">%H</div><span class="text">ساعة</span></div><div class="timer-wrapper"><div class="time">%M</div><span class="text">دقيقة</span></div><div class="timer-wrapper"><div class="time">%S</div><span class="text">ثانية</span></div>'
+                                      )
+                                  );
+                    });
+              }
+         
+
+            else {
+
+                      console.log("Sa7a Ftourk");
+                      $("#iftar_status").text(": صحة شريبتك ! مازال على الإفطار غدوة ");
+                      iftarDate.setDate(day + 1);
+                      $("#countdown").countdown(iftarDate, function (event) {
+                                    $(this).html(
+                                        event.strftime(
+                                          '<div class="timer-wrapper"><div class="time">%H</div><span class="text">ساعة</span></div><div class="timer-wrapper"><div class="time">%M</div><span class="text">دقيقة</span></div><div class="timer-wrapper"><div class="time">%S</div><span class="text">ثانية</span></div>'
+                                        )
+                                    );
+                      });
+
+              }
+
+         });
   
-
-
-    var myDate = new Date(); //date now
-    $.getJSON( "https://kouki.website/timetunisia.php", function( res ) {
-      console.log(res)
-      myDate.setFullYear(res.year);
-      myDate.setMonth(res.month);
-      myDate.setDate(res.day);
-      myDate.setHours(res.hour);
-      myDate.setMinutes(res.minutes);
-      myDate.setSeconds(res.sec);
-    });
-
-
-
-
-
-  var year =  myDate.getFullYear(); //year now
-  var month = myDate.getMonth(); //month now
-  var day = myDate.getDate(); //today 
-  var hours = iftar_hour; //iftar hour
-  var mins = iftar_min; //iftar minutes
-  var seconds = myDate.getSeconds(); //seconds now
-  var miliseconds = myDate.getMilliseconds(); //milliseconds now
-
   
-
-
- var iftarDate = new Date(year , month , day , hours  , mins , seconds , miliseconds);
-
-
-
-
-if(myDate < iftarDate) {
-
-    console.log("mazel bekri");
-    $("#iftar_status").text(": مازال على الإفطار ");
-    $("#countdown").countdown(iftarDate, function (event) {
-                  $(this).html(
-                      event.strftime(
-                          '<div class="timer-wrapper"><div class="time">%H</div><span class="text">ساعة</span></div><div class="timer-wrapper"><div class="time">%M</div><span class="text">دقيقة</span></div><div class="timer-wrapper"><div class="time">%S</div><span class="text">ثانية</span></div>'
-                      )
-                  );
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   });
 
 
-}
 
-else {
 
-      console.log("Sa7a Ftourk");
-      $("#iftar_status").text(": صحة شريبتك ! مازال على الإفطار غدوة ");
-      iftarDate.setDate(day + 1);
-      $("#countdown").countdown(iftarDate, function (event) {
-                    $(this).html(
-                        event.strftime(
-                          '<div class="timer-wrapper"><div class="time">%H</div><span class="text">ساعة</span></div><div class="timer-wrapper"><div class="time">%M</div><span class="text">دقيقة</span></div><div class="timer-wrapper"><div class="time">%S</div><span class="text">ثانية</span></div>'
-                        )
-                    );
-    });
+
+
+
+function dateiftar() {
 
 }
 
- console.log("Date/Time Now : " + myDate);
-console.log("iftar Time    : " + iftarDate);
- 
+
+
+$(document).ready(function () {
+
 
 });
-});
-
-
-
 </script>
 </body>
 </html>
