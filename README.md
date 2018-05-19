@@ -1,4 +1,8 @@
 # iftar_TN
 Iftar Countdown Timer For Tunisians
 
-![Iftar Countdow Timer](https://i.imgur.com/CEnvc1r.png)
+
+
+<p align="center">
+  <img width="460" height="300" src="https://i.imgur.com/CEnvc1r.png">
+</p>
