@@ -2,7 +2,7 @@
 <p align="center">
   <img src="https://i.imgur.com/CEnvc1r.png">
 </p>
-# Iftar Countdown Timer For Tunisians
+<h1> Iftar Countdown Timer For Tunisians </h1>
 
 
 To Do List:
